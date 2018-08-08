@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Akka.Excersize.Console
+namespace Akka.Exercise.Console
 {
     class Program
     {

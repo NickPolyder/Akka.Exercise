@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{6E643453-1D71-4BBD-8B65-78CF4EC44604}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Akka.Excersize.Console</RootNamespace>
-    <AssemblyName>Akka.Excersize.Console</AssemblyName>
+    <RootNamespace>Akka.Exercise.Console</RootNamespace>
+    <AssemblyName>Akka.Exercise.Console</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

@@ -1,7 +1,7 @@
 ﻿using Akka.Actor;
 using Autofac;
 
-namespace Akka.Excersize.Application
+namespace Akka.Exercise.Application
 {
     public class App
     {
