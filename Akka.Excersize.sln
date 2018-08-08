@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2047
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akka.Excersize.Console", "Akka.Excersize.Console\Akka.Excersize.Console.csproj", "{6E643453-1D71-4BBD-8B65-78CF4EC44604}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akka.Excersize.Application", "Akka.Excersize.Application\Akka.Excersize.Application.csproj", "{60274524-1274-4C3C-A7FF-52358330348D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{ADEEEAFC-BEC5-465B-B624-78A75997A3AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Akka.Excersize.Application.Tests", "Tests\Akka.Excersize.Application.Tests\Akka.Excersize.Application.Tests.csproj", "{F6DCEC3D-66C3-4FCD-930D-7C44708321C7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6E643453-1D71-4BBD-8B65-78CF4EC44604}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E643453-1D71-4BBD-8B65-78CF4EC44604}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E643453-1D71-4BBD-8B65-78CF4EC44604}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E643453-1D71-4BBD-8B65-78CF4EC44604}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60274524-1274-4C3C-A7FF-52358330348D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60274524-1274-4C3C-A7FF-52358330348D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60274524-1274-4C3C-A7FF-52358330348D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60274524-1274-4C3C-A7FF-52358330348D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6DCEC3D-66C3-4FCD-930D-7C44708321C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6DCEC3D-66C3-4FCD-930D-7C44708321C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6DCEC3D-66C3-4FCD-930D-7C44708321C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6DCEC3D-66C3-4FCD-930D-7C44708321C7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F6DCEC3D-66C3-4FCD-930D-7C44708321C7} = {ADEEEAFC-BEC5-465B-B624-78A75997A3AE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9B080CB8-AA69-4F8D-94F4-088C00BD0A0D}
+	EndGlobalSection
+EndGlobal
