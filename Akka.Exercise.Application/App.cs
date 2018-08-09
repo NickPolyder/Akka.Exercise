@@ -1,15 +1,17 @@
-﻿using Akka.Actor;
+﻿using System;
+using Akka.Actor;
 using Autofac;
 
 namespace Akka.Exercise.Application
 {
-    public class App
+    public class App : IDisposable
     {
         public IContainer Container { get; private set; }
 
         public ActorSystem AkkaSystem => Container.Resolve<ActorSystem>();
 
         private readonly string _appName;
+
         public App()
         { }
 
@@ -18,9 +20,11 @@ namespace Akka.Exercise.Application
             _appName = appName;
         }
 
+        #region Start
+
         protected virtual void PreStart()
         { }
-        
+
         public void Start()
         {
             PreStart();
@@ -34,8 +38,12 @@ namespace Akka.Exercise.Application
         protected virtual void PostStart()
         { }
 
+        #endregion
+
+        #region Configuration
+
         protected virtual void PreConfigureServices(ContainerBuilder containerBuilder)
-        {  }
+        { }
 
         protected void ConfigureServices(ContainerBuilder containerBuilder)
         {
@@ -48,5 +56,26 @@ namespace Akka.Exercise.Application
 
         protected virtual void PostConfigureServices(ContainerBuilder containerBuilder)
         { }
+
+        #endregion
+
+        #region Dispose
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                AkkaSystem?.Dispose();
+                Container?.Dispose();
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
+
     }
 }
