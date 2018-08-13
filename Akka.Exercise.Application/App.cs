@@ -1,5 +1,7 @@
 ﻿using System;
 using Akka.Actor;
+using Akka.Exercise.Application.Options;
+using Akka.Exercise.Application.Services.Logger;
 using Autofac;
 
 namespace Akka.Exercise.Application
@@ -43,7 +45,9 @@ namespace Akka.Exercise.Application
         #region Configuration
 
         protected virtual void PreConfigureServices(ContainerBuilder containerBuilder)
-        { }
+        {
+            containerBuilder.RegisterInstance(LoggingOptions.Default());
+        }
 
         protected void ConfigureServices(ContainerBuilder containerBuilder)
         {
@@ -51,6 +55,13 @@ namespace Akka.Exercise.Application
 
             containerBuilder.RegisterInstance(ActorSystem.Create(_appName));
 
+            containerBuilder.Register<ILoggingService>((context =>
+            {
+                var system = context.Resolve<ActorSystem>();
+                var options = context.Resolve<LoggingOptions>();
+                return new LoggingService(system.ActorSelection(options.ActorSelectionUrl));
+            })).SingleInstance();
+            
             PostConfigureServices(containerBuilder);
         }
 
