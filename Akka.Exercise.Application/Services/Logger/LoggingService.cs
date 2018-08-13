@@ -10,6 +10,11 @@ namespace Akka.Exercise.Application.Services.Logger
     {
         private ActorSelection _loggingActors;
 
+        public LoggingService(ActorSelection loggingActorsPath)
+        {
+            _loggingActors = loggingActorsPath ?? throw new ArgumentNullException(nameof(loggingActorsPath));
+        }
+
         public void Log<TState>(LogLevel logLevel,
             EventId eventId,
             TState state,
@@ -21,7 +26,7 @@ namespace Akka.Exercise.Application.Services.Logger
                 .SetEventId(eventId)
                 .SetState(state)
                 .SetException(exception)
-                .SetFormatter((o,ex)=> formatter?.Invoke((TState)o,ex))
+                .SetFormatter((o, ex) => formatter?.Invoke((TState)o, ex))
                 .Build());
         }
 
@@ -50,12 +55,12 @@ namespace Akka.Exercise.Application.Services.Logger
         {
             return _loggingActors.Ask<IDisposable>(new BeginScopeItem(state));
         }
-        
+
         public IDisposable BeginScope<TState>(TState state)
         {
             return BeginScopeAsync(state).GetAwaiter().GetResult();
         }
 
-       
+
     }
 }

@@ -10,26 +10,23 @@ namespace Akka.Exercise.Application.Services.Logger
         public LoggingActor(ILogger logger)
         {
             _logger = logger;
-        }
-
-        protected override void PreStart()
-        {
-            base.PreStart();
             Receive<BeginScopeItem>(ReceiveBeginScopeItem);
             Receive<LogEnabledItem>(ReceiveLogEnabledItem);
             Receive<LogItem>(ReceiveLog);
         }
+        
 
         private bool ReceiveBeginScopeItem(BeginScopeItem beginScopeItem)
         {
-            Self.Tell(_logger.BeginScope(beginScopeItem.State));
+            Sender.Tell(_logger.BeginScope(beginScopeItem.State));
 
             return true;
         }
 
         private bool ReceiveLogEnabledItem(LogEnabledItem logEnabledItem)
         {
-            return _logger.IsEnabled(logEnabledItem.LogLevel);
+            Sender.Tell(_logger.IsEnabled(logEnabledItem.LogLevel));
+            return true;
         }
 
         private bool ReceiveLog(LogItem logItem)
@@ -39,8 +36,14 @@ namespace Akka.Exercise.Application.Services.Logger
                 logItem.State,
                 logItem.Exception,
                 logItem.Formatter ?? ((o, exception) => o?.ToString()));
-
+            Sender.Tell(System.Threading.Tasks.Task.CompletedTask);
             return true;
+        }
+
+
+        public static Props CreateProps(ILogger logger)
+        {
+            return Props.Create(() => new LoggingActor(logger));
         }
     }
 }
