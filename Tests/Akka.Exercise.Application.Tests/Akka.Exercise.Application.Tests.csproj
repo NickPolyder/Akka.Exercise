@@ -22,4 +22,8 @@
     <ProjectReference Include="..\..\Akka.Exercise.Application\Akka.Exercise.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\Downloader\" />
+  </ItemGroup>
+
 </Project>
