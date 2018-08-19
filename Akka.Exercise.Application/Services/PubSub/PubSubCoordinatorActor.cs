@@ -52,11 +52,12 @@ namespace Akka.Exercise.Application.Services.PubSub
                 _mappingActors[publishMessage.Subject].Tell(publishMessage, Self);
             }
         }
-
-
+        
         private Subject CreateSubject(Subscribe sub)
         {
             return new Subject(sub.Subject, new HashSet<IActorRef>(new[] { sub.Subscriber }));
         }
+
+        public static Props CreateProps() => Props.Create<PubSubCoordinatorActor>();
     }
 }

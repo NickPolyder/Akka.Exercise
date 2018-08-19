@@ -15,7 +15,7 @@ namespace Akka.Exercise.Application.Services.PubSub
             Receive<UnSubscribe>(unSub => OnUnSubscribe(unSub));
             Receive<PublishMessage>(pub => OnPublishMessage(pub));
         }
-
+        
         private void OnSubscribe(Subscribe subscribe)
         {
             if (_subject.Id.Equals(subscribe.Subject))

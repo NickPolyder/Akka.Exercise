@@ -14,7 +14,7 @@ namespace Akka.Exercise.Application.Tests.Services.Logger
     {
 
         [Fact]
-        public async void Should_Receive_BeginScope()
+        public void Should_Receive_BeginScope()
         {
             var mockDisposable = new Mock<IDisposable>();
             var logger = new Moq.Mock<ILogger>();
@@ -22,38 +22,40 @@ namespace Akka.Exercise.Application.Tests.Services.Logger
             logger.Setup(
                 tt => tt.BeginScope(It.IsAny<object>())).Returns(mockDisposable.Object);
 
-            var loggingActor = Sys.ActorOf(LoggingActor.CreateProps(logger.Object));
+            var sut = Sys.ActorOf(LoggingActor.CreateProps(logger.Object));
 
-            var tsk = await loggingActor.Ask(new BeginScopeItem(LogLevel.Critical));
+             sut.Tell(new BeginScopeItem(LogLevel.Critical));
 
-            tsk.ShouldBe(mockDisposable.Object);
+            var result = ExpectMsg<IDisposable>();
+            result.ShouldBe(mockDisposable.Object);
 
             logger.Verify(tt => tt.BeginScope(It.IsAny<object>()), Times.AtLeastOnce);
         }
 
 
         [Fact]
-        public async void Should_Receive_IsEnabled()
+        public void Should_Receive_IsEnabled()
         {
             var logger = new Moq.Mock<ILogger>();
             logger.Setup(
                 tt => tt.IsEnabled(It.IsAny<LogLevel>())).Returns(true);
+           
+            var sut = Sys.ActorOf(LoggingActor.CreateProps(logger.Object));
+            sut.Tell(new LogEnabledItem(LogLevel.Critical));
 
-            var loggingActor = Sys.ActorOf(LoggingActor.CreateProps(logger.Object));
-            var tsk = await loggingActor.Ask(new LogEnabledItem(LogLevel.Critical));
+            var result = ExpectMsg<bool>();
 
-            tsk.ShouldBe(true);
-
+            result.ShouldBeTrue();
             logger.Verify(tt => tt.IsEnabled(It.IsAny<LogLevel>()), Times.AtLeastOnce);
         }
 
         [Fact]
-        public async void Should_Receive_Log()
+        public void Should_Receive_Log()
         {
             var logger = new Moq.Mock<ILogger>();
 
-            var loggingActor = Sys.ActorOf(LoggingActor.CreateProps(logger.Object));
-            var tsk = await loggingActor.Ask(new LogItemBuilder()
+            var sut = Sys.ActorOf(LoggingActor.CreateProps(logger.Object));
+            sut.Tell(new LogItemBuilder()
                 .SetLogLevel(LogLevel.Critical)
                 .SetEventId(1)
                 .SetState("state")
@@ -61,7 +63,9 @@ namespace Akka.Exercise.Application.Tests.Services.Logger
                 .SetFormatter((o, ex) => "")
                 .Build());
 
-            tsk.ShouldBe(Task.CompletedTask);
+            var result = ExpectMsg<Task>();
+
+            result.ShouldBe(Task.CompletedTask);
 
             logger.Verify(
                 tt => tt.Log(It.IsAny<LogLevel>(), It.IsAny<EventId>(), It.IsAny<object>(), It.IsAny<Exception>(),

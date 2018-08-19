@@ -1,8 +1,8 @@
-﻿using Akka.Actor;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Akka.Actor;
 
-namespace Akka.Exercise.Application.Services.PubSub.Messages
+namespace Akka.Exercise.Application.Services.PubSub
 {
     public sealed class Subject : IDisposable
     {

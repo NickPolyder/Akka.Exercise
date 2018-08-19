@@ -1,8 +1,9 @@
-﻿using System;
-using Akka.Actor;
+﻿using Akka.Actor;
 using Akka.Exercise.Application.Options;
 using Akka.Exercise.Application.Services.Logger;
+using Akka.Exercise.Application.Services.PubSub;
 using Autofac;
+using System;
 
 namespace Akka.Exercise.Application
 {
@@ -61,7 +62,13 @@ namespace Akka.Exercise.Application
                 var options = context.Resolve<LoggingOptions>();
                 return new LoggingService(system.ActorSelection(options.ActorSelectionUrl));
             })).SingleInstance();
-            
+
+            containerBuilder.Register<ISubscriberService>((context =>
+            {
+                var system = context.Resolve<ActorSystem>();
+                return new SubscriberService(system);
+            })).SingleInstance();
+
             PostConfigureServices(containerBuilder);
         }
 

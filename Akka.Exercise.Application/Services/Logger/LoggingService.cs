@@ -8,9 +8,9 @@ namespace Akka.Exercise.Application.Services.Logger
 {
     public class LoggingService : ILoggingService
     {
-        private ActorSelection _loggingActors;
+        private ICanTell _loggingActors;
 
-        public LoggingService(ActorSelection loggingActorsPath)
+        public LoggingService(ICanTell loggingActorsPath)
         {
             _loggingActors = loggingActorsPath ?? throw new ArgumentNullException(nameof(loggingActorsPath));
         }
@@ -27,7 +27,7 @@ namespace Akka.Exercise.Application.Services.Logger
                 .SetState(state)
                 .SetException(exception)
                 .SetFormatter((o, ex) => formatter?.Invoke((TState)o, ex))
-                .Build());
+                .Build(),null);
         }
 
         public Task LogAsync<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
